@@ -1,0 +1,51 @@
+Laboratório 6 - Linguagens de Programação (EEL670)
+Trabalho de grafos em C++
+
+O programa lê um arquivo com as arestas de um grafo não direcionado e monta
+o grafo. Depois mostra um menu com algumas opções pra analisar ele.
+
+No nosso arquivo (colegas.txt) cada vértice é um colega da turma e o peso da
+aresta é quantas disciplinas as duas pessoas fizeram juntas. Tem 11 colegas
+e 22 arestas.
+
+Como compilar:
+
+make
+
+Como rodar:
+
+./grafo
+
+O programa pede o nome do arquivo de entrada. Se apertar Enter sem digitar
+nada ele usa o colegas.txt. Pra apagar os arquivos compilados: make clean
+
+Formato do arquivo de entrada (uma aresta por linha):
+
+Marcelo Alice 5
+Marcelo Clara 3
+
+O peso pode ser escrito com vírgula ou ponto (2,2 ou 2.2). O nome não pode
+ter espaço.
+
+Opções do menu:
+
+1 - mostra a lista de adjacência (vizinhos de cada vértice e o peso)
+2 - mostra o vértice de maior grau, o de menor grau e o grau médio
+3 - mostra as componentes conexas (usei busca em largura)
+4 - mostra a árvore geradora mínima e o custo total (usei Prim)
+5 - mostra os vértices em ordem de centralidade de proximidade
+    (as distâncias são calculadas com Dijkstra)
+0 - sair
+
+Classes:
+
+Vertice - guarda o nome do vértice
+Aresta - guarda ponteiros pros dois vértices e o peso
+Grafo - guarda os vértices e arestas em arrays, lê o arquivo e tem os
+algoritmos
+
+O grafo aceita até 100 vértices e 500 arestas.
+
+Obs: como o enunciado pede, o peso é usado como distância na árvore geradora
+e na centralidade. Então quem fez mais matérias junto acaba ficando "mais
+longe" no grafo, o que é meio estranho, mas seguimos o que foi pedido.
