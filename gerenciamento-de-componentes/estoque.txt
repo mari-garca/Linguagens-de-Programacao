@@ -1,0 +1,9 @@
+LM358;Texas Instruments;25;1.80
+NE555;Texas Instruments;40;1.20
+R-10K;Yageo;200;0.05
+R-1K;Yageo;150;0.05
+C-100NF;Murata;300;0.12
+ATMEGA328P;Microchip;10;18.90
+LED-VM-5MM;Kingbright;500;0.15
+BC547;Fairchild;120;0.25
+1N4007;Vishay;80;0.10

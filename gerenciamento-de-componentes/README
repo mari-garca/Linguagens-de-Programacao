@@ -1,0 +1,84 @@
+Laboratório 8 - Linguagens de Programação (EEL670)
+Estoque de componentes eletrônicos em C++
+
+O programa gerencia o estoque de componentes de um laboratório. Cada
+componente é uma struct com código, fabricante, quantidade e preço unitário,
+e o estoque é a classe EstoqueComponentes, que guarda os componentes num
+vector ordenado por fabricante (e pelo código, em caso de empate).
+
+Como compilar:
+
+make
+
+Como rodar:
+
+./estoque
+
+Pra apagar os arquivos compilados: make clean
+
+Menu:
+
+1 - mostra o estoque completo (cout << estoque)
+2 - entrada de componente: lê os dados (cin >> componente) e faz
+    estoque += componente
+3 - retirada: pede o código e a quantidade e faz estoque -= componente
+4 - mostra um componente pelo código (cout << componente)
+5 - consulta por faixa de preço: estoque(minimo, maximo), o mínimo entra
+    e o máximo não
+6 - reajuste de preços: novo = estoque * fator (ex.: 1.10 pra +10%)
+7 - valor total do estoque: static_cast<double>(estoque)
+0 - sair (o arquivo é atualizado aqui)
+
+Regras:
+
+- Se o código já existe, a entrada soma a quantidade e troca o preço pelo
+  novo, sem criar outro registro (o fabricante continua o que já estava).
+- Se o estoque está na capacidade máxima e o componente é novo, nada muda.
+- Na retirada, se o código não existe ou a quantidade pedida é maior que a
+  disponível, nada muda. Se a quantidade chega a zero o componente sai do
+  vector.
+- O == compara só o código e o < usa a mesma ordem do estoque (fabricante e
+  depois código).
+- Os preços e o fator de reajuste têm que ser digitados com ponto
+  (ex.: 1.50), não com vírgula.
+
+A capacidade máxima é 20 componentes diferentes. Ela é passada no construtor
+(constante CAPACIDADE_MAXIMA no main.cpp).
+
+Persistência:
+
+Os componentes ficam no arquivo estoque.txt, um por linha:
+
+codigo;fabricante;quantidade;preco
+
+Exemplo: LM358;Texas Instruments;25;1.80
+
+O construtor do estoque lê esse arquivo e o destrutor salva tudo de novo, ou
+seja, o arquivo é reescrito quando o programa termina. Se o arquivo não
+existir o estoque começa vazio.
+
+Por que o reajuste (operador *) não sobrescreve o arquivo:
+
+O operador * cria uma cópia do estoque com os preços multiplicados e devolve
+essa cópia, sem mexer no original. Como quem salva o arquivo é o destrutor,
+essa cópia temporária salvaria o arquivo quando fosse destruída, apagando os
+preços certos.
+
+Pra resolver isso a classe tem um atributo bool persistente. Só o objeto
+criado pelo construtor normal (o que carrega o arquivo) tem persistente =
+true. O construtor de cópia sempre coloca persistente = false, então
+qualquer cópia (inclusive a que o operador * devolve) é só temporária e o
+destrutor dela não salva nada.
+
+No menu dá pra escolher aplicar o reajuste. Nesse caso é feito
+estoque = reajustado. O operador = foi sobrecarregado pra copiar só os
+componentes e a capacidade, e não o persistente nem o nome do arquivo, então
+o estoque principal continua sendo o único que salva, já com os preços novos.
+
+Arquivos:
+
+componente.h/.cpp - struct Componente e os operadores <<, >>, == e <
+estoque.h/.cpp - classe EstoqueComponentes
+main.cpp - menu
+estoque.txt - dados do estoque
+Makefile
