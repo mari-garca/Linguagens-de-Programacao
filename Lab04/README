@@ -1,0 +1,74 @@
+Trabalho 01 de Linguagens de Programação - Laboratório 4 - Sistema Meteorológico (C++)
+
+O programa simula uma rede de sensores ambientais, permitindo cadastrar estações
+meteorológicas e armazenar leituras de diferentes grandezas (por exemplo,
+temperatura e umidade) ao longo do tempo. Cada estação possui um nome e várias
+leituras, e cada leitura guarda a grandeza medida, o valor e o instante da coleta.
+
+O sistema possui três classes principais, sendo elas: LeituraSensor, Estacao e
+SistemaMeteorologico. O SistemaMeteorologico guarda as estações em um vector, e
+cada Estacao guarda suas leituras em outro vector. O programa foi dividido em
+arquivos .h e .cpp de forma a modularizar.
+
+O instante de cada leitura é definido automaticamente pela classe Estacao: cada
+grandeza possui seu próprio contador, que começa em 1. Todos os cálculos filtram
+as leituras pela grandeza escolhida antes de qualquer conta, então valores de
+grandezas diferentes nunca são misturados.
+
+Funcionalidades implementadas:
+- cadastro de estações;
+- inserção de leituras de sensor;
+- exibição de relatório;
+- cálculo da evolução da média móvel;
+- ordenação das estações pela média móvel;
+- detecção de variações anormais;
+- previsão da próxima leitura utilizando regressão linear simples.
+
+Para compilar, executar no terminal:
+make
+
+(no Windows com MinGW/MSYS2, o comando é: mingw32-make)
+
+Para apagar os arquivos gerados na compilação:
+make clean
+
+Execução (após compilar):
+
+Executar no terminal:
+./main
+
+(no Windows: .\main.exe)
+
+Utilização do menu:
+1 - Cadastrar estação: pede o nome da estação (ex.: EST-CENTRO). Nomes repetidos
+    não são aceitos. Depois exibe o relatório com todas as estações e leituras.
+2 - Registrar leitura: pede a estação (já cadastrada), a grandeza (ex.:
+    temperatura) e o valor. O instante é atribuído automaticamente. Depois
+    exibe o relatório completo.
+3 - Média móvel: pede a grandeza e mostra a evolução da média móvel de cada
+    estação que possui essa grandeza.
+4 - Ranking e alerta de variação: usa a grandeza escolhida na opção 3, ordena as
+    estações pela média móvel da última janela e compara com a janela anterior.
+5 - Previsão: pede a estação e a grandeza e mostra o coeficiente angular (a), o
+    coeficiente linear (b) e o valor estimado para o próximo instante.
+6 - Carregar estações pré-definidas: cadastra EST-PRAIA, EST-SERRA e EST-PORTO,
+    cada uma com 7 leituras aleatórias de temperatura e de umidade, para testar
+    as opções 3, 4 e 5 sem digitar todas as leituras.
+7 - Ver relatório completo.
+0 - Sair.
+
+Arquivos do programa:
+- main.cpp
+- leiturasensor.h
+- leiturasensor.cpp
+- estacao.h
+- estacao.cpp
+- sistemameteorologico.h
+- sistemameteorologico.cpp
+- Makefile
+
+Obs: a média móvel utiliza janela N = 3 e a variação anormal é detectada quando a
+diferença percentual entre a última média móvel e a anterior ultrapassa ±15%.
+Os nomes de estações e grandezas diferenciam maiúsculas de minúsculas
+("temperatura" é diferente de "Temperatura"), e valores decimais devem ser
+digitados com ponto (ex.: 25.5).
